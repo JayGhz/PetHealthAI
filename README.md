@@ -1,4 +1,5 @@
-El sector veterinario enfrenta un desafío creciente en la detección temprana y precisa de enfermedades en animales de compañía, especialmente en perros y gatos, que constituyen la mayoría de pacientes atendidos en clínicas veterinarias ## Desafío y Justificación
+El sector veterinario enfrenta un desafío creciente en la detección temprana y precisa de enfermedades en animales de compañía, especialmente en perros y gatos, que constituyen la mayoría de pacientes atendidos en clínicas veterinarias 
+## Desafío y Justificación
 
 El sector **veterinario** enfrenta un desafío creciente en la **detección temprana y precisa de enfermedades** en animales de compañía, especialmente en **perros y gatos**, que constituyen la mayoría de pacientes atendidos en clínicas veterinarias urbanas (Martínez et al., 2022). La práctica clínica tradicional se basa en la observación, el examen físico y la interpretación de pruebas complementarias, pero estos métodos presentan limitaciones frente a la necesidad de **diagnósticos rápidos y con mayor grado de certeza**.
 
