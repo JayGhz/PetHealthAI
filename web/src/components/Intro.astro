@@ -1,0 +1,36 @@
+---
+const introCards = [
+  {
+    image: "/assets/intro-1.png",
+    title: "Pet Experts",
+    description: "Meet our team of skilled veterinarians, dedicated to your pet's well-being."
+  },
+  {
+    image: "/assets/intro-2.png",
+    title: "Vet Services",
+    description: "Offering a wide range of veterinary services to keep your pets healthy and happy."
+  },
+  {
+    image: "/assets/intro-3.png",
+    title: "Contact Us",
+    description: "Reach out to us for any inquiries or schedule an appointment for your pet's care."
+  }
+];
+---
+
+<section class="section__container intro__container">
+  <p class="section__subheader">Intro</p>
+  <h2 class="section__header">Get to know us more</h2>
+  <div class="intro__grid">
+    {introCards.map((card, index) => (
+      <div class="intro__card">
+        <div class="intro__image">
+          <img src={card.image} alt={card.title} />
+        </div>
+        <h4>{card.title}</h4>
+        <p>{card.description}</p>
+        <a href="#">Leer Más</a>
+      </div>
+    ))}
+  </div>
+</section>

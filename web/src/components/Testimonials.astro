@@ -1,0 +1,59 @@
+---
+const testimonials = [
+  {
+    image: "/assets/client-1.jpg",
+    name: "Sarah Johnson",
+    role: "Graphic Designer",
+    text: "The care my dog received at Pet Doctor was exceptional. The vets were attentive cared about my dog's well-being."
+  },
+  {
+    image: "/assets/client-2.jpg",
+    name: "Michael Adams",
+    role: "Software Engineer",
+    text: "Pet Doctor saved my cat during an emergency! Their quick response and expertise made all the difference."
+  },
+  {
+    image: "/assets/client-3.jpg",
+    name: "Emily Martinez",
+    role: "Teacher",
+    text: "I trust Pet Doctor with all my pets. Their team is professional, and they always go the extra mile for their patients."
+  },
+  {
+    image: "/assets/client-4.jpg",
+    name: "Jason Lee",
+    role: "Marketing Specialist",
+    text: "The grooming services at Pet Doctor are fantastic! My pup always comes back looking fresh and happy."
+  },
+  {
+    image: "/assets/client-5.jpg",
+    name: "David Thompson",
+    role: "Accountant",
+    text: "I've never seen a team so dedicated to animals. Pet Doctor is my go-to clinic for all pet-related issues."
+  }
+];
+---
+
+<section class="client">
+  <div class="section__container client__container">
+    <p class="section__subheader">Testimonials</p>
+    <h2 class="section__header">What people say about us</h2>
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        {testimonials.map((testimonial) => (
+          <div class="swiper-slide">
+            <div class="client__card">
+              <div class="client__details">
+                <img src={testimonial.image} alt="client" />
+                <div>
+                  <h4>{testimonial.name}</h4>
+                  <h5>{testimonial.role}</h5>
+                </div>
+              </div>
+              <p>{testimonial.text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

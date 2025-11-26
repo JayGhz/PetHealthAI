@@ -1,0 +1,24 @@
+---
+const services = [
+  { image: "/assets/service-1.png", title: "Emergency Care" },
+  { image: "/assets/service-2.png", title: "Vaccination Services" },
+  { image: "/assets/service-3.png", title: "Nutrition Counseling" },
+  { image: "/assets/service-4.png", title: "Behavioral Consultation" },
+  { image: "/assets/service-5.png", title: "Pet Boarding Services" }
+];
+---
+
+<section class="section__container service__container" id="service">
+  <p class="section__subheader">Services</p>
+  <h2 class="section__header">What we can do for you</h2>
+  <div class="service__flex">
+    {services.map((service) => (
+      <div class="service__card">
+        <div>
+          <img src={service.image} alt="service" />
+        </div>
+        <p>{service.title}</p>
+      </div>
+    ))}
+  </div>
+</section>

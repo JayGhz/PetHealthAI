@@ -1,0 +1,146 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+}
+
+const { title = 'Pet Health AI - Predicción de Enfermedades con IA' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link
+			href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+		/>
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<slot />
+		
+		<script src="https://unpkg.com/scrollreveal"></script>
+		<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+		<script>
+			document.addEventListener('DOMContentLoaded', function() {
+				// Menu functionality
+				const menuBtn = document.getElementById("menu-btn");
+				const navLinks = document.getElementById("nav-links");
+				const menuBtnIcon = menuBtn?.querySelector("i");
+
+				menuBtn?.addEventListener("click", (e) => {
+					navLinks?.classList.toggle("open");
+					const isOpen = navLinks?.classList.contains("open");
+					menuBtnIcon?.setAttribute("class", isOpen ? "ri-close-line" : "ri-menu-line");
+				});
+
+				navLinks?.addEventListener("click", (e) => {
+					navLinks?.classList.remove("open");
+					menuBtnIcon?.setAttribute("class", "ri-menu-line");
+				});
+
+				// ScrollReveal animations
+				// @ts-ignore
+				const ScrollReveal = window.ScrollReveal;
+				
+				const scrollRevealOption = {
+					distance: "50px",
+					origin: "bottom",
+					duration: 1000,
+				};
+
+				ScrollReveal().reveal(".header__content h4", {
+					...scrollRevealOption,
+				});
+				ScrollReveal().reveal(".header__content h1", {
+					...scrollRevealOption,
+					delay: 500,
+				});
+				ScrollReveal().reveal(".header__content h2", {
+					...scrollRevealOption,
+					delay: 1000,
+				});
+				ScrollReveal().reveal(".header__content p", {
+					...scrollRevealOption,
+					delay: 1500,
+				});
+				ScrollReveal().reveal(".header__btn", {
+					...scrollRevealOption,
+					delay: 2000,
+				});
+
+				ScrollReveal().reveal(".intro__card", {
+					...scrollRevealOption,
+					interval: 500,
+				});
+
+				ScrollReveal().reveal(
+					".about__row:nth-child(3) .about__image img, .about__row:nth-child(5) .about__image img",
+					{
+						...scrollRevealOption,
+						origin: "left",
+					}
+				);
+				ScrollReveal().reveal(".about__row:nth-child(4) .about__image img", {
+					...scrollRevealOption,
+					origin: "right",
+				});
+				ScrollReveal().reveal(".about__content span", {
+					...scrollRevealOption,
+					delay: 500,
+				});
+				ScrollReveal().reveal(".about__content h4", {
+					...scrollRevealOption,
+					delay: 1000,
+				});
+				ScrollReveal().reveal(".about__content p", {
+					...scrollRevealOption,
+					delay: 1500,
+				});
+
+				ScrollReveal().reveal(".product__card", {
+					...scrollRevealOption,
+					interval: 500,
+				});
+
+				ScrollReveal().reveal(".service__card", {
+					duration: 1000,
+					interval: 500,
+				});
+
+				ScrollReveal().reveal(".instagram__grid img", {
+					duration: 1000,
+					interval: 500,
+				});
+
+				// Swiper initialization
+				// @ts-ignore
+				const swiper = new Swiper(".swiper", {
+					slidesPerView: 3,
+					spaceBetween: 20,
+					loop: true,
+					breakpoints: {
+						0: {
+							slidesPerView: 1,
+						},
+						640: {
+							slidesPerView: 2,
+						},
+						1024: {
+							slidesPerView: 3,
+						},
+					},
+				});
+			});
+		</script>
+	</body>
+</html>

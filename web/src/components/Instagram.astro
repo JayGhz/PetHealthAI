@@ -1,0 +1,18 @@
+---
+const instagramImages = [
+  "/assets/instagram-1.jpg",
+  "/assets/instagram-2.jpg",
+  "/assets/instagram-3.jpg",
+  "/assets/instagram-4.jpg"
+];
+---
+
+<section class="section__container instagram__container">
+  <p>VISUALIZACIONES</p>
+  <h2 class="section__header">Instagram</h2>
+  <div class="instagram__grid">
+    {instagramImages.map((image) => (
+      <img src={image} alt="instagram" class="w-full h-auto" />
+    ))}
+  </div>
+</section>

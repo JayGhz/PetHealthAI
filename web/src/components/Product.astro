@@ -1,0 +1,39 @@
+---
+const products = [
+  {
+    image: "/assets/product-1.jpg",
+    title: "Dataset Clínico",
+    description: "22 enfermedades con datos de especie, raza, edad, peso y síntomas clínicos.",
+    price: "Kaggle"
+  },
+  {
+    image: "/assets/product-2.jpg",
+    title: "Dataset de Imágenes",
+    description: "Imágenes de condiciones dermatológicas y patologías visibles en mascotas.",
+    price: "Kaggle"
+  },
+  {
+    image: "/assets/product-3.jpg",
+    title: "Datos Aumentados",
+    description: "Técnicas de data augmentation aplicadas para mejorar el entrenamiento.",
+    price: "Generado"
+  }
+];
+---
+
+<section class="product" id="store">
+  <div class="section__container product__container">
+    <p class="section__subheader">Datasets</p>
+    <h2 class="section__header">Fuentes de datos del proyecto</h2>
+    <div class="product__grid">
+      {products.map((product) => (
+        <div class="product__card">
+          <img src={product.image} alt="product" />
+          <h4>{product.title}</h4>
+          <p>{product.description}</p>
+          <h3>{product.price}</h3>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

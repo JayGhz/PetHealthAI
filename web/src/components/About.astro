@@ -1,0 +1,39 @@
+---
+const aboutRows = [
+  {
+    image: "/assets/about-1.jpg",
+    icon: "/assets/about-1-icon.png",
+    title: "Let us help you with your pet health",
+    description: "Our expert veterinarians are here to provide comprehensive care and guidance to ensure your pet stays in perfect health."
+  },
+  {
+    image: "/assets/about-2.jpg",
+    icon: "/assets/about-2-icon.png",
+    title: "Caring personal will take care of your pet",
+    description: "Your pet will be in good hands with our compassionate and well-trained staff, who treat every pet like family."
+  },
+  {
+    image: "/assets/about-3.jpg",
+    icon: "/assets/about-3-icon.png",
+    title: "Let us groom your precious and loved pet",
+    description: "From bathing to styling, we offer professional grooming services to keep your pet looking and feeling their best."
+  }
+];
+---
+
+<section class="section__container about__container" id="about">
+  <p class="section__subheader">About Us</p>
+  <h2 class="section__header">What we can do for you</h2>
+  {aboutRows.map((row) => (
+    <div class="about__row">
+      <div class="about__image">
+        <img src={row.image} alt="about" />
+      </div>
+      <div class="about__content">
+        <span><img src={row.icon} alt="about-icon" /></span>
+        <h4>{row.title}</h4>
+        <p>{row.description}</p>
+      </div>
+    </div>
+  ))}
+</section>
