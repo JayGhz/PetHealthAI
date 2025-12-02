@@ -1,7 +1,0 @@
-model,split,accuracy,macro_f1
-RandomForest,test,1.0,1.0
-LinearSVM,test,1.0,1.0
-DecisionTree,test,0.2802721088435374,0.4952206550325443
-RandomForest,val,1.0,1.0
-LinearSVM,val,1.0,1.0
-DecisionTree,val,0.2800453514739229,0.4980944507117208
