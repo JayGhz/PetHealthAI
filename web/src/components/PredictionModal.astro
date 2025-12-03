@@ -9,29 +9,167 @@
     
     <div class="modal-header">
       <h2>Diagnóstico Inteligente</h2>
-      <p>Sube una foto de tu mascota para un análisis rápido</p>
+      <p>Completa los síntomas de tu mascota</p>
     </div>
 
     <div class="modal-body">
       <form id="predictionForm">
-        <!-- Image Upload Area -->
-        <div class="upload-area" id="uploadArea">
-          <input 
-            type="file" 
-            id="imageInput" 
-            accept="image/*" 
-            hidden
-          />
-          <div class="upload-placeholder" id="uploadPlaceholder">
-            <i class="ri-image-add-line"></i>
-            <p>Haz clic o arrastra una imagen</p>
-            <span>JPG, PNG - Máx. 10MB</span>
+        <!-- Symptoms Selection -->
+        <div class="symptoms-section">
+          <h3>Síntomas Observados</h3>
+          <p class="section-subtitle">Selecciona los síntomas principales</p>
+          
+          <div class="symptoms-grid">
+            <div class="symptom-checkbox">
+              <input type="checkbox" id="fever" name="symptom" value="Fever">
+              <label for="fever">
+                <i class="ri-temp-hot-line"></i>
+                <span>Fiebre</span>
+              </label>
+            </div>
+            
+            <div class="symptom-checkbox">
+              <input type="checkbox" id="lethargy" name="symptom" value="Lethargy">
+              <label for="lethargy">
+                <i class="ri-zzz-line"></i>
+                <span>Letargo</span>
+              </label>
+            </div>
+            
+            <div class="symptom-checkbox">
+              <input type="checkbox" id="appetite_loss" name="symptom" value="Appetite Loss">
+              <label for="appetite_loss">
+                <i class="ri-restaurant-line"></i>
+                <span>Pérdida de Apetito</span>
+              </label>
+            </div>
+            
+            <div class="symptom-checkbox">
+              <input type="checkbox" id="vomiting" name="symptom" value="Vomiting">
+              <label for="vomiting">
+                <i class="ri-flood-line"></i>
+                <span>Vómito</span>
+              </label>
+            </div>
+            
+            <div class="symptom-checkbox">
+              <input type="checkbox" id="diarrhea" name="symptom" value="Diarrhea">
+              <label for="diarrhea">
+                <i class="ri-water-flash-line"></i>
+                <span>Diarrea</span>
+              </label>
+            </div>
+            
+            <div class="symptom-checkbox">
+              <input type="checkbox" id="coughing" name="symptom" value="Coughing">
+              <label for="coughing">
+                <i class="ri-lung-line"></i>
+                <span>Tos</span>
+              </label>
+            </div>
+            
+            <div class="symptom-checkbox">
+              <input type="checkbox" id="sneezing" name="symptom" value="Sneezing">
+              <label for="sneezing">
+                <i class="ri-contrast-drop-2-line"></i>
+                <span>Estornudos</span>
+              </label>
+            </div>
+            
+            <div class="symptom-checkbox">
+              <input type="checkbox" id="labored_breathing" name="symptom" value="Labored Breathing">
+              <label for="labored_breathing">
+                <i class="ri-hearts-line"></i>
+                <span>Dificultad Respiratoria</span>
+              </label>
+            </div>
+            
+            <div class="symptom-checkbox">
+              <input type="checkbox" id="lameness" name="symptom" value="Lameness">
+              <label for="lameness">
+                <i class="ri-footprint-line"></i>
+                <span>Cojera</span>
+              </label>
+            </div>
+            
+            <div class="symptom-checkbox">
+              <input type="checkbox" id="skin_lesions" name="symptom" value="Skin Lesions">
+              <label for="skin_lesions">
+                <i class="ri-contrast-drop-line"></i>
+                <span>Lesiones en Piel</span>
+              </label>
+            </div>
+            
+            <div class="symptom-checkbox">
+              <input type="checkbox" id="nasal_discharge" name="symptom" value="Nasal Discharge">
+              <label for="nasal_discharge">
+                <i class="ri-drop-line"></i>
+                <span>Secreción Nasal</span>
+              </label>
+            </div>
+            
+            <div class="symptom-checkbox">
+              <input type="checkbox" id="eye_discharge" name="symptom" value="Eye Discharge">
+              <label for="eye_discharge">
+                <i class="ri-eye-line"></i>
+                <span>Secreción Ocular</span>
+              </label>
+            </div>
+            
+            <div class="symptom-checkbox">
+              <input type="checkbox" id="dehydration" name="symptom" value="Dehydration">
+              <label for="dehydration">
+                <i class="ri-cup-line"></i>
+                <span>Deshidratación</span>
+              </label>
+            </div>
+            
+            <div class="symptom-checkbox">
+              <input type="checkbox" id="weight_loss" name="symptom" value="Weight Loss">
+              <label for="weight_loss">
+                <i class="ri-scales-line"></i>
+                <span>Pérdida de Peso</span>
+              </label>
+            </div>
+            
+            <div class="symptom-checkbox">
+              <input type="checkbox" id="swelling" name="symptom" value="Swelling">
+              <label for="swelling">
+                <i class="ri-bubble-chart-line"></i>
+                <span>Hinchazón</span>
+              </label>
+            </div>
           </div>
-          <div class="image-preview" id="imagePreview" style="display: none;">
-            <img id="previewImg" src="" alt="Preview" />
-            <button type="button" class="remove-image" id="removeImage">
-              <i class="ri-delete-bin-line"></i>
+        </div>
+
+        <!-- Optional Image Upload -->
+        <div class="optional-image-section">
+          <div class="section-header">
+            <h3>¿Deseas agregar una foto? (Opcional)</h3>
+            <button type="button" class="toggle-image-btn" id="toggleImageBtn">
+              <i class="ri-image-add-line"></i>
+              <span>Agregar Imagen</span>
             </button>
+          </div>
+          
+          <div class="upload-area" id="uploadArea" style="display: none;">
+            <input 
+              type="file" 
+              id="imageInput" 
+              accept="image/*" 
+              hidden
+            />
+            <div class="upload-placeholder" id="uploadPlaceholder">
+              <i class="ri-image-add-line"></i>
+              <p>Haz clic o arrastra una imagen</p>
+              <span>JPG, PNG - Máx. 10MB</span>
+            </div>
+            <div class="image-preview" id="imagePreview" style="display: none;">
+              <img id="previewImg" src="" alt="Preview" />
+              <button type="button" class="remove-image" id="removeImage">
+                <i class="ri-delete-bin-line"></i>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -94,7 +232,7 @@
   .modal-content {
     background: var(--white);
     border-radius: 24px;
-    max-width: 500px;
+    max-width: 900px;
     width: 100%;
     max-height: 90vh;
     overflow-y: auto;
@@ -140,38 +278,162 @@
   }
 
   .modal-header {
-    padding: 2rem 2rem 1rem;
+    padding: 1.5rem 2rem 0.75rem;
     text-align: center;
   }
 
   .modal-header h2 {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     color: var(--text-dark);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
   }
 
   .modal-header p {
     color: var(--text-light);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
 
   .modal-body {
     padding: 0 2rem 2rem;
   }
 
-  .upload-area {
+  .symptoms-section {
     margin-bottom: 1.5rem;
+  }
+
+  .symptoms-section h3 {
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    margin-bottom: 0.25rem;
+  }
+
+  .section-subtitle {
+    color: var(--text-light);
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .symptoms-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.75rem;
+  }
+
+  .symptom-checkbox {
     position: relative;
+  }
+
+  .symptom-checkbox input[type="checkbox"] {
+    display: none;
+  }
+
+  .symptom-checkbox label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.65rem 0.5rem;
+    background: #fafafa;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+    min-height: 75px;
+  }
+
+  .symptom-checkbox label i {
+    font-size: 1.4rem;
+    color: var(--text-light);
+    margin-bottom: 0.35rem;
+    transition: all 0.3s;
+  }
+
+  .symptom-checkbox label span {
+    font-size: 0.75rem;
+    color: var(--text-dark);
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  .symptom-checkbox input[type="checkbox"]:checked + label {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 215, 248, 0.4);
+  }
+
+  .symptom-checkbox input[type="checkbox"]:checked + label i {
+    color: var(--text-dark);
+    transform: scale(1.1);
+  }
+
+  .symptom-checkbox label:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+  }
+
+  .optional-image-section {
+    margin-bottom: 1.5rem;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-header h3 {
+    font-size: 1rem;
+    color: var(--text-dark);
+  }
+
+  .toggle-image-btn {
+    padding: 0.45rem 0.9rem;
+    background: var(--primary-color);
+    border: none;
+    border-radius: 8px;
+    color: var(--text-dark);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+  }
+
+  .toggle-image-btn:hover {
+    background: var(--text-dark);
+    color: var(--white);
+  }
+
+  .toggle-image-btn i {
+    font-size: 1.1rem;
+  }
+
+  .upload-area {
+    margin-bottom: 1rem;
+    position: relative;
+    margin-top: 0.75rem;
   }
 
   .upload-placeholder {
     border: 2px dashed var(--primary-color);
     border-radius: 16px;
-    padding: 3rem 2rem;
+    padding: 2rem 1.5rem;
     text-align: center;
     cursor: pointer;
     transition: all 0.3s;
     background: #fafafa;
+    max-width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   .upload-placeholder:hover {
@@ -180,9 +442,9 @@
   }
 
   .upload-placeholder i {
-    font-size: 3rem;
+    font-size: 2.5rem;
     color: var(--primary-color);
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
   }
 
   .upload-placeholder:hover i {
@@ -204,10 +466,12 @@
     position: relative;
     border-radius: 16px;
     overflow: hidden;
+    max-width: 300px;
+    margin: 0 auto;
   }
 
   .image-preview img {
-    width: 100%;
+    width: 300px;
     height: 300px;
     object-fit: cover;
     border-radius: 16px;
@@ -239,12 +503,12 @@
 
   .predict-btn {
     width: 100%;
-    padding: 1rem;
+    padding: 0.85rem;
     background: linear-gradient(135deg, var(--primary-color) 0%, #b8aef5 100%);
     border: none;
     border-radius: 12px;
     color: var(--text-dark);
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s;
@@ -377,6 +641,25 @@
 <script>
   const API_URL = 'http://localhost:5000';
 
+  // Mapeo de síntomas en español a inglés (como están en el CSV)
+  const symptomMapping: Record<string, string> = {
+    "Fever": "Fever",
+    "Lethargy": "Lethargy",
+    "Appetite Loss": "Appetite Loss",
+    "Vomiting": "Vomiting",
+    "Diarrhea": "Diarrhea",
+    "Coughing": "Coughing",
+    "Sneezing": "Sneezing",
+    "Labored Breathing": "Labored Breathing",
+    "Lameness": "Lameness",
+    "Skin Lesions": "Skin Lesions",
+    "Nasal Discharge": "Nasal Discharge",
+    "Eye Discharge": "Eye Discharge",
+    "Dehydration": "Dehydration",
+    "Weight Loss": "Weight Loss",
+    "Swelling": "Swelling"
+  };
+
   // Mensajes personalizados por enfermedad
 const diseaseMessages: Record<string, string> = {
     "Dental Disease": "Tu mascota podría tener problemas dentales. Te recomendamos una revisión dental para mantener su salud bucal. Con el cuidado adecuado, su sonrisa volverá a brillar.",
@@ -395,7 +678,12 @@ const diseaseMessages: Record<string, string> = {
     "Skin Allergy": "Tu mascota tiene signos de alergia cutánea. Buenas noticias, con manejo de alergias y tratamiento sintomático, tu peludo volverá a estar cómodo. Solo necesita un poco de ayuda.",
     "Tick Infestation": "Se detectó infestación de garrapatas. Es fácil de resolver con productos antiparasitarios adecuados. Tu mascota estará libre de estas molestas visitas en poco tiempo.",
     "Urinary Tract Infection": "Posible infección urinaria detectada. Con antibióticos, tu gato se sentirá mejor rápidamente. Es una condición común y muy tratable. Pronto volverá a la normalidad.",
-    "Worm Infection": "Tu mascota tiene parásitos intestinales. No te preocupes, es súper común y se soluciona fácilmente con desparasitantes. En días notarás la mejoría."
+    "Worm Infection": "Tu mascota tiene parásitos intestinales. No te preocupes, es súper común y se soluciona fácilmente con desparasitantes. En días notarás la mejoría.",
+    // Enfermedades tabulares
+    "Respiratory Infection": "Se detectó una infección respiratoria. Con el tratamiento adecuado, tu mascota se recuperará pronto. Mantén un ambiente cálido y consulta a tu veterinario.",
+    "Gastroenteritis": "Los síntomas indican gastroenteritis. Es tratable con hidratación y dieta adecuada. Tu veterinario puede recetar medicamentos para aliviar el malestar.",
+    "Parasitic Infection": "Tu mascota tiene una infección parasitaria. Con el desparasitante correcto, se resolverá rápidamente. Es muy común y completamente tratable.",
+    "Arthritis": "Se detectaron signos de artritis. Aunque es crónica, hay muchos tratamientos para mantener a tu mascota cómoda y activa. Con el manejo adecuado, tendrá buena calidad de vida."
 };
 
   // Normalizar nombres de enfermedades
@@ -422,6 +710,21 @@ const diseaseMessages: Record<string, string> = {
   const predictionForm = document.getElementById('predictionForm') as HTMLFormElement;
   const resultsArea = document.getElementById('resultsArea');
   const newAnalysisBtn = document.getElementById('newAnalysisBtn');
+  const toggleImageBtn = document.getElementById('toggleImageBtn');
+  const symptomCheckboxes = document.querySelectorAll('input[name="symptom"]');
+
+  // Validar formulario
+  function validateForm() {
+    const selectedSymptoms = Array.from(symptomCheckboxes).filter((cb: any) => cb.checked);
+    const hasImage = imageInput?.files && imageInput.files.length > 0;
+    // Habilitar si hay síntomas o imagen
+    predictBtn.disabled = selectedSymptoms.length === 0 && !hasImage;
+  }
+
+  // Escuchar cambios en checkboxes
+  symptomCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', validateForm);
+  });
 
   // Abrir modal
   document.querySelector('.header__btn button')?.addEventListener('click', () => {
@@ -441,14 +744,30 @@ const diseaseMessages: Record<string, string> = {
     }
   });
 
+  // Toggle imagen opcional
+  toggleImageBtn?.addEventListener('click', () => {
+    if (uploadArea!.style.display === 'none') {
+      uploadArea!.style.display = 'block';
+      toggleImageBtn.innerHTML = '<i class="ri-image-line"></i><span>Ocultar Imagen</span>';
+    } else {
+      uploadArea!.style.display = 'none';
+      toggleImageBtn.innerHTML = '<i class="ri-image-add-line"></i><span>Agregar Imagen</span>';
+      resetImageUpload();
+    }
+  });
+
   // Upload de imagen
-  uploadArea?.addEventListener('click', () => {
-    imageInput?.click();
+  uploadArea?.addEventListener('click', (e) => {
+    if (uploadArea.style.display !== 'none') {
+      imageInput?.click();
+    }
   });
 
   uploadArea?.addEventListener('dragover', (e) => {
     e.preventDefault();
-    uploadArea.style.borderColor = 'var(--text-dark)';
+    if (uploadArea.style.display !== 'none') {
+      uploadArea.style.borderColor = 'var(--text-dark)';
+    }
   });
 
   uploadArea?.addEventListener('dragleave', () => {
@@ -459,7 +778,7 @@ const diseaseMessages: Record<string, string> = {
     e.preventDefault();
     uploadArea.style.borderColor = 'var(--primary-color)';
     const files = e.dataTransfer?.files;
-    if (files && files.length > 0) {
+    if (files && files.length > 0 && uploadArea.style.display !== 'none') {
       handleImageUpload(files[0]);
     }
   });
@@ -493,7 +812,7 @@ const diseaseMessages: Record<string, string> = {
         previewImg.src = e.target.result as string;
         uploadPlaceholder!.style.display = 'none';
         imagePreview!.style.display = 'block';
-        predictBtn.disabled = false;
+        validateForm(); // Revalidar cuando se agrega imagen
       }
     };
     reader.readAsDataURL(file);
@@ -504,23 +823,78 @@ const diseaseMessages: Record<string, string> = {
     if (previewImg) previewImg.src = '';
     uploadPlaceholder!.style.display = 'block';
     imagePreview!.style.display = 'none';
-    predictBtn.disabled = true;
+    validateForm(); // Revalidar cuando se quita imagen
   }
 
   function resetForm() {
     resetImageUpload();
     resultsArea!.style.display = 'none';
     predictionForm!.style.display = 'block';
+    uploadArea!.style.display = 'none';
+    toggleImageBtn!.innerHTML = '<i class="ri-image-add-line"></i><span>Agregar Imagen</span>';
+    
+    // Desmarcar todos los checkboxes
+    symptomCheckboxes.forEach((cb: any) => {
+      cb.checked = false;
+    });
+    
+    predictBtn.disabled = true;
   }
 
   // Submit del formulario
   predictionForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    if (!imageInput?.files || imageInput.files.length === 0) {
-      alert('Por favor selecciona una imagen');
+    // Obtener síntomas seleccionados
+    const selectedSymptoms = Array.from(symptomCheckboxes)
+      .filter((cb: any) => cb.checked)
+      .map((cb: any) => cb.value);
+
+    // Verificar si hay imagen
+    const hasImage = imageInput?.files && imageInput.files.length > 0;
+    const hasSymptoms = selectedSymptoms.length > 0;
+
+    // Debe tener al menos síntomas o imagen
+    if (!hasSymptoms && !hasImage) {
+      alert('Por favor selecciona al menos un síntoma o agrega una imagen');
       return;
     }
+
+    // Preparar síntomas para el backend (los primeros 4, rellenar con "No" si faltan)
+    const symptomsForBackend: string[] = [];
+    for (let i = 0; i < 4; i++) {
+      if (i < selectedSymptoms.length) {
+        symptomsForBackend.push(selectedSymptoms[i]);
+      } else {
+        symptomsForBackend.push('No');
+      }
+    }
+
+    // Crear datos tabulares con valores codificados binarios
+    const tabularData = {
+      symptom_1: symptomsForBackend[0],
+      symptom_2: symptomsForBackend[1],
+      symptom_3: symptomsForBackend[2],
+      symptom_4: symptomsForBackend[3],
+      appetite_loss: selectedSymptoms.includes('Appetite Loss') || selectedSymptoms.includes('Loss of Appetite') ? 1 : 0,
+      vomiting: selectedSymptoms.includes('Vomiting') ? 1 : 0,
+      diarrhea: selectedSymptoms.includes('Diarrhea') ? 1 : 0,
+      coughing: selectedSymptoms.includes('Coughing') ? 1 : 0,
+      labored_breathing: selectedSymptoms.includes('Labored Breathing') ? 1 : 0,
+      lameness: selectedSymptoms.includes('Lameness') ? 1 : 0,
+      skin_lesions: selectedSymptoms.includes('Skin Lesions') ? 1 : 0,
+      nasal_discharge: selectedSymptoms.includes('Nasal Discharge') ? 1 : 0,
+      eye_discharge: selectedSymptoms.includes('Eye Discharge') ? 1 : 0,
+      // Valores por defecto para otros campos (valores válidos del dataset)
+      animal_type: 'Dog',
+      breed: 'Labrador',
+      age: 5,
+      gender: 'Male',
+      weight: 15.0,
+      body_temperature: 38.5,
+      heart_rate: 120,
+      duration_days: 3
+    };
 
     const btnText = predictBtn.querySelector('.btn-text');
     const btnLoader = predictBtn.querySelector('.btn-loader');
@@ -532,7 +906,21 @@ const diseaseMessages: Record<string, string> = {
 
     try {
       const formData = new FormData();
-      formData.append('image', imageInput.files[0]);
+      
+      // Agregar imagen si existe (independiente de síntomas)
+      if (hasImage) {
+        formData.append('image', imageInput.files[0]);
+      }
+      
+      // Agregar datos tabulares solo si hay síntomas seleccionados
+      if (hasSymptoms) {
+        formData.append('tabular_data', JSON.stringify(tabularData));
+      }
+
+      console.log('Enviando al backend:', {
+        hasImage,
+        tabularData
+      });
 
       const response = await fetch(`${API_URL}/predict`, {
         method: 'POST',
@@ -540,15 +928,18 @@ const diseaseMessages: Record<string, string> = {
       });
 
       if (!response.ok) {
-        throw new Error('Error en la predicción');
+        const errorData = await response.json().catch(() => ({ error: 'Error desconocido' }));
+        console.error('Error del servidor:', errorData);
+        throw new Error(errorData.error || 'Error en la predicción');
       }
 
       const data = await response.json();
+      console.log('Respuesta del backend:', data);
       displayResults(data);
 
     } catch (error) {
-      console.error('Error:', error);
-      alert('Hubo un error al analizar la imagen. Por favor intenta de nuevo.');
+      console.error('Error completo:', error);
+      alert(`Hubo un error al analizar: ${error.message || 'Por favor intenta de nuevo.'}`);
       predictBtn.disabled = false;
       (btnText as HTMLElement).style.display = 'block';
       (btnLoader as HTMLElement).style.display = 'none';
