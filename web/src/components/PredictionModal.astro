@@ -1,0 +1,588 @@
+---
+---
+
+<div id="predictionModal" class="modal-overlay">
+  <div class="modal-content">
+    <button class="modal-close" id="closeModal">
+      <i class="ri-close-line"></i>
+    </button>
+    
+    <div class="modal-header">
+      <h2>Diagnóstico Inteligente</h2>
+      <p>Sube una foto de tu mascota para un análisis rápido</p>
+    </div>
+
+    <div class="modal-body">
+      <form id="predictionForm">
+        <!-- Image Upload Area -->
+        <div class="upload-area" id="uploadArea">
+          <input 
+            type="file" 
+            id="imageInput" 
+            accept="image/*" 
+            hidden
+          />
+          <div class="upload-placeholder" id="uploadPlaceholder">
+            <i class="ri-image-add-line"></i>
+            <p>Haz clic o arrastra una imagen</p>
+            <span>JPG, PNG - Máx. 10MB</span>
+          </div>
+          <div class="image-preview" id="imagePreview" style="display: none;">
+            <img id="previewImg" src="" alt="Preview" />
+            <button type="button" class="remove-image" id="removeImage">
+              <i class="ri-delete-bin-line"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="predict-btn" id="predictBtn" disabled>
+          <span class="btn-text">Analizar</span>
+          <span class="btn-loader" style="display: none;">
+            <i class="ri-loader-4-line"></i>
+          </span>
+        </button>
+      </form>
+
+      <!-- Results Area -->
+      <div class="results-area" id="resultsArea" style="display: none;">
+        <div class="result-icon">
+          <i class="ri-heart-pulse-line"></i>
+        </div>
+        <h3 id="resultDisease">Enfermedad Detectada</h3>
+        <div class="confidence-bar">
+          <div class="confidence-fill" id="confidenceFill"></div>
+        </div>
+        <p class="confidence-text" id="confidenceText">95% de confianza</p>
+        <div class="result-message" id="resultMessage">
+          <p>Mensaje personalizado según la enfermedad</p>
+        </div>
+        <button class="new-analysis-btn" id="newAnalysisBtn">
+          Nueva Consulta
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .modal-overlay.active {
+    display: flex;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .modal-content {
+    background: var(--white);
+    border-radius: 24px;
+    max-width: 500px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease;
+  }
+
+  @keyframes slideUp {
+    from { 
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to { 
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--primary-color);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    transition: all 0.3s;
+    z-index: 10;
+  }
+
+  .modal-close:hover {
+    background: var(--text-dark);
+    color: var(--white);
+    transform: rotate(90deg);
+  }
+
+  .modal-header {
+    padding: 2rem 2rem 1rem;
+    text-align: center;
+  }
+
+  .modal-header h2 {
+    font-size: 1.75rem;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .modal-header p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+  }
+
+  .modal-body {
+    padding: 0 2rem 2rem;
+  }
+
+  .upload-area {
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+
+  .upload-placeholder {
+    border: 2px dashed var(--primary-color);
+    border-radius: 16px;
+    padding: 3rem 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: #fafafa;
+  }
+
+  .upload-placeholder:hover {
+    border-color: var(--text-dark);
+    background: var(--primary-color);
+  }
+
+  .upload-placeholder i {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+  }
+
+  .upload-placeholder:hover i {
+    color: var(--text-dark);
+  }
+
+  .upload-placeholder p {
+    color: var(--text-dark);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .upload-placeholder span {
+    color: var(--text-light);
+    font-size: 0.85rem;
+  }
+
+  .image-preview {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .image-preview img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 16px;
+  }
+
+  .remove-image {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.25rem;
+    color: #e74c3c;
+    transition: all 0.3s;
+  }
+
+  .remove-image:hover {
+    background: #e74c3c;
+    color: white;
+    transform: scale(1.1);
+  }
+
+  .predict-btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #b8aef5 100%);
+    border: none;
+    border-radius: 12px;
+    color: var(--text-dark);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .predict-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(220, 215, 248, 0.5);
+  }
+
+  .predict-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .btn-loader i {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .results-area {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: linear-gradient(135deg, #fafafa 0%, var(--primary-color) 100%);
+    border-radius: 16px;
+    margin-top: 1.5rem;
+    animation: fadeIn 0.5s ease;
+  }
+
+  .result-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    background: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .results-area h3 {
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+  }
+
+  .confidence-bar {
+    width: 60%;
+    margin: 0 auto;
+    height: 18px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+  }
+
+  .confidence-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4CAF50, #8BC34A);
+    border-radius: 20px;
+    transition: width 1s ease;
+    width: 0%;
+  }
+
+  .confidence-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 1.5rem;
+  }
+
+  .result-message {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+  }
+
+  .result-message p {
+    color: var(--text-dark);
+    line-height: 1.6;
+  }
+
+  .new-analysis-btn {
+    padding: 0.75rem 2rem;
+    background: var(--text-dark);
+    color: var(--white);
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .new-analysis-btn:hover {
+    background: #2a2640;
+    transform: translateY(-2px);
+  }
+
+  /* Scrollbar personalizado */
+  .modal-content::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .modal-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  .modal-content::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+  }
+
+  .modal-content::-webkit-scrollbar-thumb:hover {
+    background: #b8aef5;
+  }
+</style>
+
+<script>
+  const API_URL = 'http://localhost:5000';
+
+  // Mensajes personalizados por enfermedad
+const diseaseMessages: Record<string, string> = {
+    "Dental Disease": "Tu mascota podría tener problemas dentales. Te recomendamos una revisión dental para mantener su salud bucal. Con el cuidado adecuado, su sonrisa volverá a brillar.",
+    "Distemper": "Se detectaron síntomas compatibles con moquillo. Es importante actuar rápido, pero con el tratamiento veterinario adecuado, muchas mascotas se recuperan completamente. Estás haciendo lo correcto al buscar ayuda.",
+    "Ear Mites": "Parece que tu mascota tiene ácaros en los oídos. Buenas noticias, es una condición muy tratable. Con la medicación correcta, tu peludo amigo estará mejor en poco tiempo.",
+    "Eye Infection": "Se detectó una posible infección ocular. No te preocupes, con tratamiento temprano se resuelve rápidamente. Tu veterinario podrá recetar gotas que aliviarán a tu mascota en días.",
+    "Feline Leukemia": "Los síntomas sugieren leucemia felina. Aunque es una condición seria, con los cuidados apropiados y seguimiento veterinario, tu gato puede tener una vida confortable. Tu amor y atención marcan la diferencia.",
+    "Feline Panleukopenia": "Se detectaron signos de panleucopenia felina. Es crucial la atención veterinaria inmediata, pero con tratamiento de soporte, muchos gatos superan esta enfermedad. Actuar rápido es clave.",
+    "Fungal Infection": "Tu mascota parece tener una infección por hongos. Tranquilo, con el antifúngico adecuado, su piel volverá a estar saludable. Es completamente tratable.",
+    "Hot Spots": "Se identificaron puntos calientes en la piel. Estas lesiones son molestas pero responden muy bien al tratamiento. Con cuidado local y medicación, tu peludo sanará pronto.",
+    "Kennel Cough": "Tu perro podría tener tos de las perreras. Aunque suena alarmante, casi siempre se cura solo. Es como un resfriado para perros. Manténlo cómodo y pronto estará ladrando de alegría.",
+    "Mange": "Se detectaron síntomas de sarna. Aunque es incómodo para tu mascota, es completamente curable. Con el tratamiento correcto, su piel y pelaje se recuperarán totalmente.",
+    "Parvovirus": "Los síntomas son compatibles con parvovirus. Es serio pero tratable con atención veterinaria inmediata. Muchos cachorros se recuperan con cuidados intensivos. Tu rápida acción puede salvar su vida.",
+    "Ringworm": "Tu mascota parece tener tiña. No te alarmes, a pesar del nombre, no es un gusano y se trata fácilmente con medicación antifúngica. Su pelaje volverá a crecer hermoso.",
+    "Scabies": "Se identificó sarna sarcóptica. Es muy molesta pero altamente tratable. Con el medicamento adecuado, tu gato se sentirá aliviado en poco tiempo. Pronto volverá a ronronear.",
+    "Skin Allergy": "Tu mascota tiene signos de alergia cutánea. Buenas noticias, con manejo de alergias y tratamiento sintomático, tu peludo volverá a estar cómodo. Solo necesita un poco de ayuda.",
+    "Tick Infestation": "Se detectó infestación de garrapatas. Es fácil de resolver con productos antiparasitarios adecuados. Tu mascota estará libre de estas molestas visitas en poco tiempo.",
+    "Urinary Tract Infection": "Posible infección urinaria detectada. Con antibióticos, tu gato se sentirá mejor rápidamente. Es una condición común y muy tratable. Pronto volverá a la normalidad.",
+    "Worm Infection": "Tu mascota tiene parásitos intestinales. No te preocupes, es súper común y se soluciona fácilmente con desparasitantes. En días notarás la mejoría."
+};
+
+  // Normalizar nombres de enfermedades
+  function normalizeDiseaseName(disease: string): string {
+    return disease.replace(/ in (Cat|Dog)$/i, '').trim();
+  }
+
+  // Obtener mensaje personalizado
+  function getDiseaseMessage(disease: string): string {
+    const normalized = normalizeDiseaseName(disease);
+    return diseaseMessages[normalized] || "Hemos detectado una posible condición en tu mascota. Te recomendamos consultar con tu veterinario para un diagnóstico preciso y tratamiento adecuado. ¡Estás haciendo lo correcto! 💚";
+  }
+
+  // Elementos del DOM
+  const modal = document.getElementById('predictionModal');
+  const closeModalBtn = document.getElementById('closeModal');
+  const uploadArea = document.getElementById('uploadArea');
+  const imageInput = document.getElementById('imageInput') as HTMLInputElement;
+  const uploadPlaceholder = document.getElementById('uploadPlaceholder');
+  const imagePreview = document.getElementById('imagePreview');
+  const previewImg = document.getElementById('previewImg') as HTMLImageElement;
+  const removeImageBtn = document.getElementById('removeImage');
+  const predictBtn = document.getElementById('predictBtn') as HTMLButtonElement;
+  const predictionForm = document.getElementById('predictionForm') as HTMLFormElement;
+  const resultsArea = document.getElementById('resultsArea');
+  const newAnalysisBtn = document.getElementById('newAnalysisBtn');
+
+  // Abrir modal
+  document.querySelector('.header__btn button')?.addEventListener('click', () => {
+    modal?.classList.add('active');
+  });
+
+  // Cerrar modal
+  closeModalBtn?.addEventListener('click', () => {
+    modal?.classList.remove('active');
+    resetForm();
+  });
+
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.remove('active');
+      resetForm();
+    }
+  });
+
+  // Upload de imagen
+  uploadArea?.addEventListener('click', () => {
+    imageInput?.click();
+  });
+
+  uploadArea?.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    uploadArea.style.borderColor = 'var(--text-dark)';
+  });
+
+  uploadArea?.addEventListener('dragleave', () => {
+    uploadArea.style.borderColor = 'var(--primary-color)';
+  });
+
+  uploadArea?.addEventListener('drop', (e) => {
+    e.preventDefault();
+    uploadArea.style.borderColor = 'var(--primary-color)';
+    const files = e.dataTransfer?.files;
+    if (files && files.length > 0) {
+      handleImageUpload(files[0]);
+    }
+  });
+
+  imageInput?.addEventListener('change', (e) => {
+    const files = (e.target as HTMLInputElement).files;
+    if (files && files.length > 0) {
+      handleImageUpload(files[0]);
+    }
+  });
+
+  removeImageBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    resetImageUpload();
+  });
+
+  function handleImageUpload(file: File) {
+    if (!file.type.startsWith('image/')) {
+      alert('Por favor selecciona una imagen válida');
+      return;
+    }
+
+    if (file.size > 10 * 1024 * 1024) {
+      alert('La imagen es muy grande. Máximo 10MB');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      if (previewImg && e.target?.result) {
+        previewImg.src = e.target.result as string;
+        uploadPlaceholder!.style.display = 'none';
+        imagePreview!.style.display = 'block';
+        predictBtn.disabled = false;
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function resetImageUpload() {
+    if (imageInput) imageInput.value = '';
+    if (previewImg) previewImg.src = '';
+    uploadPlaceholder!.style.display = 'block';
+    imagePreview!.style.display = 'none';
+    predictBtn.disabled = true;
+  }
+
+  function resetForm() {
+    resetImageUpload();
+    resultsArea!.style.display = 'none';
+    predictionForm!.style.display = 'block';
+  }
+
+  // Submit del formulario
+  predictionForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (!imageInput?.files || imageInput.files.length === 0) {
+      alert('Por favor selecciona una imagen');
+      return;
+    }
+
+    const btnText = predictBtn.querySelector('.btn-text');
+    const btnLoader = predictBtn.querySelector('.btn-loader');
+
+    predictBtn.disabled = true;
+    if (btnText) btnText.textContent = 'Analizando...';
+    (btnText as HTMLElement).style.display = 'none';
+    (btnLoader as HTMLElement).style.display = 'block';
+
+    try {
+      const formData = new FormData();
+      formData.append('image', imageInput.files[0]);
+
+      const response = await fetch(`${API_URL}/predict`, {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        throw new Error('Error en la predicción');
+      }
+
+      const data = await response.json();
+      displayResults(data);
+
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Hubo un error al analizar la imagen. Por favor intenta de nuevo.');
+      predictBtn.disabled = false;
+      (btnText as HTMLElement).style.display = 'block';
+      (btnLoader as HTMLElement).style.display = 'none';
+      if (btnText) btnText.textContent = 'Analizar';
+    }
+  });
+
+  function displayResults(data: any) {
+    predictionForm!.style.display = 'none';
+    resultsArea!.style.display = 'block';
+
+    const disease = normalizeDiseaseName(data.top_prediction);
+    const confidence = (data.confidence * 100).toFixed(1);
+
+    document.getElementById('resultDisease')!.textContent = disease;
+    document.getElementById('confidenceText')!.textContent = `${confidence}% de confianza`;
+    document.getElementById('resultMessage')!.innerHTML = `<p>${getDiseaseMessage(data.top_prediction)}</p>`;
+
+    // Animar barra de confianza
+    setTimeout(() => {
+      const confidenceFill = document.getElementById('confidenceFill');
+      if (confidenceFill) {
+        confidenceFill.style.width = `${confidence}%`;
+      }
+    }, 100);
+  }
+
+  // Nueva consulta
+  newAnalysisBtn?.addEventListener('click', () => {
+    resetForm();
+    const btnText = predictBtn.querySelector('.btn-text');
+    const btnLoader = predictBtn.querySelector('.btn-loader');
+    if (btnText) btnText.textContent = 'Analizar';
+    (btnText as HTMLElement).style.display = 'block';
+    (btnLoader as HTMLElement).style.display = 'none';
+  });
+</script>

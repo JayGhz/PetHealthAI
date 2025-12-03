@@ -2,29 +2,29 @@
 const products = [
   {
     image: "/assets/product-1.jpg",
-    title: "Dataset Clínico",
-    description: "22 enfermedades con datos de especie, raza, edad, peso y síntomas clínicos.",
-    price: "Kaggle"
+    title: "Bolsas para desechos de perro",
+    description: "Bolsas convenientes y ecológicas para la fácil eliminación de desechos de mascotas.",
+    price: "$29.00 USD"
   },
   {
     image: "/assets/product-2.jpg",
-    title: "Dataset de Imágenes",
-    description: "Imágenes de condiciones dermatológicas y patologías visibles en mascotas.",
-    price: "Kaggle"
+    title: "Accesorios para mascotas",
+    description: "Explora nuestra gama de accesorios elegantes y funcionales para tus amigos peludos.",
+    price: "$49.00 USD"
   },
   {
     image: "/assets/product-3.jpg",
-    title: "Datos Aumentados",
-    description: "Técnicas de data augmentation aplicadas para mejorar el entrenamiento.",
-    price: "Generado"
+    title: "Comida",
+    description: "Opciones de comida de alta calidad y nutritiva para mantener a tus mascotas sanas y felices.",
+    price: "$29.00 USD"
   }
 ];
 ---
 
 <section class="product" id="store">
   <div class="section__container product__container">
-    <p class="section__subheader">Datasets</p>
-    <h2 class="section__header">Fuentes de datos del proyecto</h2>
+    <p class="section__subheader">Productos</p>
+    <h2 class="section__header">Productos destacados para mascotas</h2>
     <div class="product__grid">
       {products.map((product) => (
         <div class="product__card">

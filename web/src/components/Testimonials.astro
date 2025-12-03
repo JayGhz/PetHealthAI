@@ -3,57 +3,76 @@ const testimonials = [
   {
     image: "/assets/client-1.jpg",
     name: "Sarah Johnson",
-    role: "Graphic Designer",
-    text: "The care my dog received at Pet Doctor was exceptional. The vets were attentive cared about my dog's well-being."
+    role: "Diseñadora Gráfica",
+    text: "El cuidado que recibió mi perro en Pet Health AI fue excepcional. Los veterinarios fueron atentos y se preocuparon por el bienestar de mi perro."
   },
   {
     image: "/assets/client-2.jpg",
     name: "Michael Adams",
-    role: "Software Engineer",
-    text: "Pet Doctor saved my cat during an emergency! Their quick response and expertise made all the difference."
+    role: "Ingeniero de Software",
+    text: "Pet Health AI salvó a mi gato durante una emergencia. Su rápida respuesta y experiencia marcaron la diferencia."
   },
   {
     image: "/assets/client-3.jpg",
     name: "Emily Martinez",
-    role: "Teacher",
-    text: "I trust Pet Doctor with all my pets. Their team is professional, and they always go the extra mile for their patients."
-  },
-  {
-    image: "/assets/client-4.jpg",
-    name: "Jason Lee",
-    role: "Marketing Specialist",
-    text: "The grooming services at Pet Doctor are fantastic! My pup always comes back looking fresh and happy."
-  },
-  {
-    image: "/assets/client-5.jpg",
-    name: "David Thompson",
-    role: "Accountant",
-    text: "I've never seen a team so dedicated to animals. Pet Doctor is my go-to clinic for all pet-related issues."
+    role: "Maestra",
+    text: "Confío en Pet Health AI con todas mis mascotas. Su equipo es profesional y siempre hacen un esfuerzo adicional por sus pacientes."
   }
 ];
 ---
 
 <section class="client">
   <div class="section__container client__container">
-    <p class="section__subheader">Testimonials</p>
-    <h2 class="section__header">What people say about us</h2>
-    <div class="swiper">
-      <div class="swiper-wrapper">
-        {testimonials.map((testimonial) => (
-          <div class="swiper-slide">
-            <div class="client__card">
-              <div class="client__details">
-                <img src={testimonial.image} alt="client" />
-                <div>
-                  <h4>{testimonial.name}</h4>
-                  <h5>{testimonial.role}</h5>
-                </div>
-              </div>
-              <p>{testimonial.text}</p>
+    <p class="section__subheader">Testimonios</p>
+    <h2 class="section__header">Lo que la gente dice sobre nosotros</h2>
+    <div class="testimonials-grid">
+      {testimonials.map((testimonial) => (
+        <div class="client__card">
+          <div class="client__details">
+            <img src={testimonial.image} alt="client" />
+            <div>
+              <h4>{testimonial.name}</h4>
+              <h5>{testimonial.role}</h5>
             </div>
           </div>
-        ))}
-      </div>
+          <p>{testimonial.text}</p>
+        </div>
+      ))}
     </div>
   </div>
 </section>
+
+<style>
+  .testimonials-grid {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding: 2rem 0;
+  }
+
+  .client__card {
+    flex: 0 0 calc(33.333% - 1rem);
+    min-width: 280px;
+  }
+
+  @media (max-width: 1200px) {
+    .testimonials-grid {
+      justify-content: flex-start;
+    }
+    .client__card {
+      flex: 0 0 calc(33.333% - 1rem);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .client__card {
+      flex: 0 0 calc(50% - 0.75rem);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .client__card {
+      flex: 0 0 100%;
+    }
+  }
+</style>
