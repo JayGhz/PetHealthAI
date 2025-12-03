@@ -6,15 +6,7 @@ Curso: *Machine Learning (CC57)*
 
 ---
 
-## 👩‍💻 1. Integrantes
-
-* **Jhair Armando Quispe Marca** (u20211c699)
-* **Andre Angel Chipana Rios** (u202220230)
-* **Maria Ximena Chavarria Barrios** (u202323166)
-
----
-
-## 🎯 2. Objetivo del Proyecto
+## 🎯 1. Objetivo del Proyecto
 
 El sector veterinario enfrenta grandes desafíos en la detección temprana y precisa de enfermedades en animales de compañía.
 Este proyecto tiene como finalidad **desarrollar un sistema multimodal de predicción temprana de enfermedades en perros y gatos**, combinando información **clínica estructurada (datos tabulares)** con **evidencia visual (imágenes de síntomas o lesiones)**.
@@ -23,7 +15,7 @@ El objetivo es **asistir a los profesionales veterinarios** en el diagnóstico, 
 
 ---
 
-## 📊 3. Datasets
+## 📊 2. Datasets
 
 Se empleó un enfoque **multimodal** basado en dos fuentes complementarias de datos provenientes de **Kaggle**:
 
@@ -40,11 +32,11 @@ Se empleó un enfoque **multimodal** basado en dos fuentes complementarias de da
 
 ---
 
-## ⚙️ 4. Metodología y Enfoque Técnico
+## ⚙️ 3. Metodología y Enfoque Técnico
 
 El desarrollo sigue un flujo de trabajo basado en las etapas de **preprocesamiento**, **análisis exploratorio**, **modelado** y **fusión multimodal**.
 
-### 4.1. Adquisición y Preprocesamiento
+### 3.1. Adquisición y Preprocesamiento
 
 **Datos clínicos (tabulares):**
 
@@ -59,7 +51,7 @@ El desarrollo sigue un flujo de trabajo basado en las etapas de **preprocesamien
 
 ---
 
-### 4.2. Análisis Exploratorio (EDA)
+### 3.2. Análisis Exploratorio (EDA)
 
 Se realizaron visualizaciones y análisis estadísticos para comprender la estructura del conjunto de datos.
 Principales hallazgos:
@@ -70,7 +62,7 @@ Principales hallazgos:
 
 ---
 
-### 4.3. Modelado y Fusión Multimodal
+### 3.3. Modelado y Fusión Multimodal
 
 El enfoque central utiliza **Deep Learning multimodal**, combinando información clínica y visual.
 
@@ -90,7 +82,7 @@ El enfoque central utiliza **Deep Learning multimodal**, combinando información
 
 ---
 
-### 4.4. Interpretabilidad del Modelo
+### 3.4. Interpretabilidad del Modelo
 
 Para garantizar transparencia y confiabilidad se utilizan técnicas explicativas:
 
@@ -99,7 +91,7 @@ Para garantizar transparencia y confiabilidad se utilizan técnicas explicativas
 
 ---
 
-## 📈 5. Resultados Preliminares (Baseline)
+## 📈 4. Resultados Preliminares (Baseline)
 
 Resultados obtenidos usando únicamente los datos clínicos:
 
@@ -113,7 +105,7 @@ Los modelos avanzados (XGBoost, Random Forest y redes neuronales multimodales) b
 
 ---
 
-## 🧩 6. Gestión del Proyecto
+## 🧩 5. Gestión del Proyecto
 
 La gestión del proyecto se organiza mediante:
 
@@ -121,8 +113,4 @@ La gestión del proyecto se organiza mediante:
 * **Metodología SCRUM:** Gestión de backlog, tareas y sprints a través de un tablero *Kanban* en *Trello*.
 
 ---
-
-
-📌 **Estado actual:** En desarrollo (fase de integración multimodal).
-📅 **Última actualización:** Octubre 2025.
 
