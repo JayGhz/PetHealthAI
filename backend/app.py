@@ -90,28 +90,48 @@ def preprocess_tabular_data(data):
     # Orden de features esperado por el modelo
     features = []
     
-    # Animal_Type_encoded
-    animal_type = data.get('animal_type', 'Unknown')
-    features.append(label_encoders['Animal_Type'].transform([animal_type])[0])
+    # Animal_Type_encoded - manejar valores desconocidos
+    animal_type = data.get('animal_type', 'Dog')
+    try:
+        features.append(label_encoders['Animal_Type'].transform([animal_type])[0])
+    except ValueError:
+        # Si el valor no existe, usar el más común (Dog)
+        features.append(label_encoders['Animal_Type'].transform(['Dog'])[0])
     
-    # Breed_encoded
-    breed = data.get('breed', 'Unknown')
-    features.append(label_encoders['Breed'].transform([breed])[0])
+    # Breed_encoded - manejar valores desconocidos
+    breed = data.get('breed', 'Labrador')
+    try:
+        features.append(label_encoders['Breed'].transform([breed])[0])
+    except ValueError:
+        # Si el valor no existe, usar el más común (Labrador)
+        features.append(label_encoders['Breed'].transform(['Labrador'])[0])
     
     # Age
-    features.append(float(data.get('age', 0)))
+    features.append(float(data.get('age', 5)))
     
-    # Gender_encoded
-    gender = data.get('gender', 'Unknown')
-    features.append(label_encoders['Gender'].transform([gender])[0])
+    # Gender_encoded - manejar valores desconocidos
+    gender = data.get('gender', 'Male')
+    try:
+        features.append(label_encoders['Gender'].transform([gender])[0])
+    except ValueError:
+        # Si el valor no existe, usar Male
+        features.append(label_encoders['Gender'].transform(['Male'])[0])
     
     # Weight
-    features.append(float(data.get('weight', 0)))
+    features.append(float(data.get('weight', 15.0)))
     
     # Symptom_1_encoded, Symptom_2_encoded, Symptom_3_encoded, Symptom_4_encoded
     for i in range(1, 5):
-        symptom = data.get(f'symptom_{i}', 'None')
-        features.append(label_encoders[f'Symptom_{i}'].transform([symptom])[0])
+        symptom = data.get(f'symptom_{i}', 'No')
+        try:
+            features.append(label_encoders[f'Symptom_{i}'].transform([symptom])[0])
+        except (ValueError, KeyError):
+            # Si el síntoma no es reconocido, usar 'No' o el primer valor válido
+            try:
+                features.append(label_encoders[f'Symptom_{i}'].transform(['No'])[0])
+            except ValueError:
+                # Si 'No' tampoco existe, usar el primer valor del encoder
+                features.append(0)
     
     # Características binarias/numéricas
     features.append(int(data.get('appetite_loss', 0)))
@@ -197,8 +217,12 @@ def predict():
     """Endpoint principal de predicción"""
     try:
         # Verificar qué datos se enviaron
-        has_image = 'image' in request.files
+        has_image = 'image' in request.files and request.files['image'].filename != ''
         has_tabular = 'tabular_data' in request.form or request.is_json
+        
+        print(f"DEBUG - has_image: {has_image}, has_tabular: {has_tabular}")
+        print(f"DEBUG - request.form: {request.form.keys()}")
+        print(f"DEBUG - request.files: {request.files.keys()}")
         
         if not has_image and not has_tabular:
             return jsonify({"error": "Se requiere al menos imagen o datos tabulares"}), 400
